@@ -1,0 +1,1 @@
+let rgb:[number,number,number] = [344,53,55]
