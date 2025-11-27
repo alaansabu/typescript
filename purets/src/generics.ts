@@ -36,4 +36,26 @@ const getMoreName = <t>(val:t[]):t |undefined=>{
    
     
 
+
+
 }
+
+interface fetchUserData{
+
+    user_id : string;
+    userName:string;
+
+
+}
+
+//genric class
+function anotherexample<t,u extends fetchUserData>(valone:t,valtwo:u):object {
+return {
+
+    valone,valtwo
+}
+}
+
+
+anotherexample(2,{user_id:"Dev one",userName:"Alan Sabu"})
+
