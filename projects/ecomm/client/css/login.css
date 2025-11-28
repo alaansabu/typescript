@@ -1,0 +1,140 @@
+/* ---------------------------------------------------
+   Ajio-like styling for your form card
+   Uses Poppins font (include the <link> above)
+   --------------------------------------------------- */
+:root{
+  --bg:#f6f7f9;
+  --card-start:#ffffff;
+  --card-end:#f3f6f5;
+  --accent:#ff6a00;        /* bright orange accent */
+  --muted:#6b6f72;
+  --accent-dark:#e05500;
+  --shadow: 0 10px 30px rgba(20,20,20,0.08);
+  --glass: rgba(255,255,255,0.6);
+  --radius-lg:20px;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family: "Poppins", system-ui, sans-serif;
+  background: linear-gradient(180deg, #f2f4f7 0%, var(--bg) 100%);
+  color:#222;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:40px 16px;
+}
+
+/* main card */
+.container {
+  width: min(520px, 94%);
+  background: linear-gradient(180deg, var(--card-start), var(--card-end));
+  border-radius: var(--radius-lg);
+  padding: 34px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(0,0,0,0.04);
+  transition: transform .18s ease, box-shadow .18s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* subtle accent stripe on top like a brand tag */
+.container::before{
+  content: "";
+  position: absolute;
+  left:0; right:0; top:0;
+  height:6px;
+  background: linear-gradient(90deg, transparent 0%, var(--accent) 20%, var(--accent-dark) 80%, transparent 100%);
+}
+
+/* header */
+.container h2{
+  margin:0 0 10px 0;
+  font-size:1.25rem;
+  font-weight:700;
+  letter-spacing: .2px;
+  color:#111;
+}
+.container p.lead{
+  margin:0 0 18px 0;
+  color:var(--muted);
+  font-size:.95rem;
+}
+
+/* inputs: larger, pill-ish, high-contrast placeholder */
+.container form input{
+  display:block;
+  width:100%;
+  padding:14px 16px;
+  margin:10px 0;
+  border-radius:12px;
+  border:1px solid rgba(16,24,32,0.06);
+  background:#fff;
+  font-size:0.98rem;
+  color:#111;
+  outline:none;
+  transition: box-shadow .14s ease, transform .12s ease, border-color .12s ease;
+}
+.container form input::placeholder{ color:#9aa0a6; font-weight:500; }
+
+/* focused input with soft glow */
+.container form input:focus{
+  box-shadow: 0 6px 18px rgba(255,106,0,0.10);
+  border-color: rgba(255,106,0,0.35);
+  transform: translateY(-1px);
+}
+
+/* layout of buttons */
+.btn-container{
+  display:flex;
+  gap:12px;
+  margin-top:18px;
+  align-items:center;
+  justify-content:space-between;
+}
+
+/* primary pill button (Save draft) */
+.S_btn.primary{
+  appearance:none;
+  -webkit-appearance:none;
+  border:none;
+  padding:12px 20px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-dark));
+  color:white;
+  font-weight:700;
+  border-radius:999px;
+  cursor:pointer;
+  box-shadow: 0 8px 22px rgba(255,106,0,0.18);
+  transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+  letter-spacing:.6px;
+  text-transform:uppercase;
+  font-size:.875rem;
+}
+
+/* secondary button (Login) */
+.S_btn.secondary{
+  background: transparent;
+  color:var(--muted);
+  border: 1px solid rgba(16,24,32,0.06);
+  padding:10px 18px;
+  border-radius:12px;
+  font-weight:600;
+  cursor:pointer;
+  transition: background .12s ease, transform .12s ease, box-shadow .12s ease;
+}
+
+/* hover effects */
+.S_btn.primary:hover{ transform: translateY(-3px); box-shadow: 0 14px 34px rgba(255,106,0,0.20); }
+.S_btn.secondary:hover{ background: rgba(16,24,32,0.03); transform: translateY(-2px); }
+
+/* responsive smaller screens */
+@media (max-width:420px){
+  .container{ padding:22px; border-radius:16px; }
+  .btn-container{ flex-direction:column-reverse; gap:10px; }
+  .S_btn.primary{ width:100%; }
+  .S_btn.secondary{ width:100%; }
+}
