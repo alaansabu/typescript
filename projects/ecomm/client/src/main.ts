@@ -7,9 +7,6 @@ mail:string
 }
 
 function getUserData(data:values):void{
-
-
-
 try {
     localStorage.setItem("student_login",JSON.stringify(data))
 
