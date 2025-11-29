@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+  mysql_db:
+    image: mysql:8.0
+    container_name: mysql-ecom
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root123}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-ecomm}
+      MYSQL_USER: ${MYSQL_USER:-ecomm}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-Alansabu6046}
+    ports:
+      - "${DB_HOST_PORT:-3307}:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./db/init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql_db
+
+  app:
+    build: .
+    container_name: node-app
+    restart: unless-stopped
+    env_file:
+      - .env
+    depends_on:
+      mysql_db:
+        condition: service_healthy
+    ports:
+      - "5000:5000"
+    # Uncomment the two lines below during development to mount your source and use nodemon
+    # volumes:
+    #   - ./:/usr/src/app
+    # command: npm run dev
+
+volumes:
+  mysql_data:
