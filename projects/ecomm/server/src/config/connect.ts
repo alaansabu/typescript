@@ -9,7 +9,8 @@ const user = process.env.DB_USER!;
 const password = String(process.env.DB_PASS);
 const database = process.env.DB_NAME ||"ecom"!;
 
-export const connection: Pool = createPool({
+
+export const connectiondb: Pool = createPool({
   host,
   port,
   user,
@@ -19,11 +20,12 @@ export const connection: Pool = createPool({
 });
 
 
-
 try {
-    connection.getConnection().then(()=>console.log("db is connected"))
+    connectiondb.getConnection().then(()=>console.log("db is connected"))
     
 } catch (error) {
     console.log("error is:-",error);
     
 }
+
+export default connectiondb;
