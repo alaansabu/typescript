@@ -2,6 +2,7 @@ import "dotenv/config";
 import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import { PrismaClient } from "@prisma/client";
+import Jwt from "jsonwebtoken"
 
 let prisma: PrismaClient;
 
@@ -12,11 +13,6 @@ const getPrisma = () => {
     return prisma;
 };
 
-export interface User {
-    id: number;
-    email: string;
-    password_hash: string;
-}
 
 const hashedPassword = async (plain: string): Promise<string> => {
     const saltRounds = 12;
@@ -42,13 +38,14 @@ export const userSignUp = async (req: Request, res: Response) => {
     }
 
     try {
-        const password_hash = await hashedPassword(password);
+        const hashedpass = await hashedPassword(password);
+       
         const prismaClient = getPrisma();
-
+          
         const created = await prismaClient.user.create({
             data: {
                 email: userEmail,
-                password_hash: password_hash
+                password_hash: hashedpass
             }
         });
 
@@ -61,3 +58,37 @@ export const userSignUp = async (req: Request, res: Response) => {
         return res.status(500).json({ error: "Failed to create user", detail: err?.message ?? String(err) });
     }
 }
+
+export const loginUser = async (req:Request,res:Response) => {
+
+    const {email,password} = req.body as {email:string;password:string}
+
+//check if there is user 
+
+const PrismaClient = getPrisma()
+const isUser = await PrismaClient.user.findUnique({where:{email},
+select:{id:true,email:true,password_hash:true}
+
+
+})
+
+if(!isUser){
+   return  res.status(400).json({"error":"no user found"})
+
+}
+
+//compare password hashed and normal
+
+
+const isSame = await comparePassword(password,isUser.password_hash);
+        if(!isSame){
+            console.error("technical error hashing failed")
+        }else{
+            console.log(" hsanshing succesfull");
+            
+        }
+
+}
+
+
+
