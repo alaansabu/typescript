@@ -3,7 +3,8 @@ import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import { PrismaClient } from "@prisma/client";
 import Jwt from "jsonwebtoken"
-
+import { configDotenv } from "dotenv";
+configDotenv()
 let prisma: PrismaClient;
 
 const getPrisma = () => {
@@ -87,6 +88,34 @@ const isSame = await comparePassword(password,isUser.password_hash);
             console.log(" hsanshing succesfull");
             
         }
+
+
+        //tocken 
+        const JWT_SECREAT = process.env.JWT_SECREAT||"my_super_secret_key"
+
+const token = Jwt.sign({id:isUser.id,email:isUser.email},JWT_SECREAT,{expiresIn:"1h"})
+const expiresAt = new Date(Date.now()+60*60*1000)
+
+await prisma.token.create({
+data: {
+
+  token:token,
+    userId:isUser.id,
+    expiresAt:expiresAt
+
+}
+
+  
+    
+
+
+
+})
+
+res.status(200).json({"message":"session created"})
+
+
+
 
 }
 
