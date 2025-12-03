@@ -2,6 +2,7 @@ import express from 'express';
 import { connectiondb } from "./config/connect";
 import { userRouter } from './routes/routes';
 import type { Request, Response } from 'express';
+import { authMidlleWare } from './middlewares/middlewares';
 import dotenv from "dotenv";
 dotenv.config()
 
@@ -16,7 +17,9 @@ app.get("/",(req:Request,res:Response)=>{
     res.send("hllo server")
 })
 
-app.use('/api/user',userRouter)
+app.use('/api/user',authMidlleWare,userRouter)
+
+
 
 app.listen(5000,()=>{
  connectiondb
