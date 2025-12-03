@@ -31,6 +31,7 @@ body{
 
 /* main card */
 .container {
+  min-height: 26rem;
   width: min(520px, 94%);
   background: linear-gradient(180deg, var(--card-start), var(--card-end));
   border-radius: var(--radius-lg);
@@ -40,6 +41,20 @@ body{
   transition: transform .18s ease, box-shadow .18s ease;
   position: relative;
   overflow: hidden;
+}
+
+/* wrapper for consistent layout */
+.main-container {
+  width: min(520px, 94%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-container > h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #111;
 }
 
 /* subtle accent stripe on top like a brand tag */
