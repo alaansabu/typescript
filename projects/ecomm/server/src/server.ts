@@ -17,7 +17,7 @@ app.get("/",(req:Request,res:Response)=>{
     res.send("hllo server")
 })
 
-app.use('/api/user',authMidlleWare,userRouter)
+app.use('/api/user',userRouter)
 
 
 

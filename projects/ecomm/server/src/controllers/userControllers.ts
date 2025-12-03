@@ -85,10 +85,9 @@ const isSame = await comparePassword(password,isUser.password_hash);
         if(!isSame){
             console.error("technical error hashing failed")
         }else{
-            console.log(" hsanshing succesfull");
+            console.log(" hashing succesfull");
             
         }
-
 
         //tocken 
         const JWT_SECREAT = process.env.JWT_SECREAT||"my_super_secret_key"

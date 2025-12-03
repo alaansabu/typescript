@@ -1,10 +1,9 @@
-import { error } from "console";
 import { Request,Response,NextFunction} from "express";
 
 
 export const authMidlleWare = (req:Request,res:Response,next:NextFunction) =>{
-try {
-      const authHeader = req.headers.authorization;
+    try {
+    const authHeader = req.headers.authorization;
       console.log(authHeader);
       
   if(!authHeader){
@@ -12,22 +11,22 @@ try {
 return res.status(400).json({"error":"header not found"});
 
   }
+  const token = req.headers["authorization"];
+
+console.log("token is unavailabe",token);
+
+if(!token){
+    return res.status(400).json({"message":"token id uavailabe"})
+}
+
 } catch (error) {
     console.log(error)
     
 }
 
 
-const token = authHeader.split('')[1]
 
-console.log("token is unavailabel",token);
-
-if(!token){
-    res.status(400).json({"message":"token ot availabe"})
-}
-
-
-next
+next()
 
 
 }
