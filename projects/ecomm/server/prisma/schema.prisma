@@ -31,3 +31,14 @@ model Token {
   expiresAt  DateTime @map("expires_at")
   revoked    Boolean  @default(false)
 }
+
+
+model products {
+
+
+id      Int       @id@default(autoincrement())
+name    String
+price   Float
+image   String 
+}
+
