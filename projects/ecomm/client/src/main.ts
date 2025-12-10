@@ -31,7 +31,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         alert("Login successful!");
-        window.location.href = "main.html";
+
+        window.location.href = "index.html"
+         debugger
+
       } catch (error: any) {
         console.error("Login error:", error.message);
         alert(error.message || "Login failed");
