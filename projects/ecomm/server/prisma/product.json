@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Wireless Headphones",
+    "price": 79.99,
+    "image": "/images/headphones.jpg"
+  },
+  {
+    "name": "Smart Watch",
+    "price": 199.99,
+    "image": "/images/smartwatch.jpg"
+  },
+  {
+    "name": "Laptop Stand",
+    "price": 45.00,
+    "image": "/images/laptop-stand.jpg"
+  },
+  {
+    "name": "USB-C Hub",
+    "price": 35.99,
+    "image": "/images/usb-hub.jpg"
+  },
+  {
+    "name": "Mechanical Keyboard",
+    "price": 129.99,
+    "image": "/images/keyboard.jpg"
+  }
+]
